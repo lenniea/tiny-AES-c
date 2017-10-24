@@ -137,11 +137,9 @@ static void test_encrypt_ecb(void)
 static void AES_CBC_test(const uint8_t* plain, const uint8_t* cipher, size_t count, const uint8_t* key, const uint8_t* iv)
 {
   uint8_t buffer[64];
-  uint8_t work[64];
 
   printf("CBC encrypt %d: ", count);
-  memcpy(work, plain, count);
-  AES_CBC_encrypt_buffer(buffer, work, count, key, iv);
+  AES_CBC_encrypt_buffer(buffer, plain, count, key, iv);
   if(0 == memcmp((char*) cipher, (char*) buffer, count))
   {
     printf("SUCCESS!\n");
@@ -152,8 +150,7 @@ static void AES_CBC_test(const uint8_t* plain, const uint8_t* cipher, size_t cou
   }
 
   printf("CBC decrypt %d: ", count);
-  memcpy(work, cipher, count);
-  AES_CBC_decrypt_buffer(buffer, work, count, key, iv);
+  AES_CBC_decrypt_buffer(buffer, cipher, count, key, iv);
   if(0 == memcmp((char*) plain, (char*) buffer, count))
   {
     printf("SUCCESS!\n");
